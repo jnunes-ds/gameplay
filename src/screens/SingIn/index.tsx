@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     View,
     Text,
@@ -6,12 +6,12 @@ import {
     StatusBar 
 } from 'react-native';
 
+import { ButtonIcon } from '../../components/ButtonIcon';
 import IllustrationImg from '../../assets/illustration.png'
 import { styles } from './styles';
 
 
 export function SingIN(){
-    const [text, setText] = useState('Júnior');
 
 
     return (
@@ -36,6 +36,8 @@ export function SingIN(){
                     Crie grupos para jogar games {`\n`}
                     favoritos com seus amigos
                 </Text>
+
+                <ButtonIcon />
             </View>
         </View>
     );
