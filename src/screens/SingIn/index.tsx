@@ -37,7 +37,10 @@ export function SingIN(){
                     favoritos com seus amigos
                 </Text>
 
-                <ButtonIcon />
+                <ButtonIcon 
+                    title="Entrar com o Discord"
+                    activeOpacity={.7}
+                />
             </View>
         </View>
     );
