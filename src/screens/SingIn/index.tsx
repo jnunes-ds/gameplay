@@ -38,7 +38,6 @@ export function SingIn(){
 
                 <ButtonIcon 
                     title="Entrar com o Discord"
-                    activeOpacity={.7}
                     onPress={handleSingIn}
                 />
             </View>
