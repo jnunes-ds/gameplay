@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import {
     Profile,
@@ -9,6 +9,12 @@ import {
 import { styles } from './styles';
 
 export function Home(){
+    const [category, setCategory] = useState('');
+
+    function handleCategorySelect(categoryId: string){
+        categoryId === category ? setCategory('') : setCategory(categoryId);
+    }
+
     return (
         <View
             style={styles.Container}
@@ -19,7 +25,10 @@ export function Home(){
             </View>
 
             <View>
-                <CategorySelect />
+                <CategorySelect 
+                    categorySelected={category}
+                    setCategory={handleCategorySelect}
+                />
             </View>
 
         </View>
