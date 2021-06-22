@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { ButtonIcon } from '../../components';
+import { ButtonIcon, Background } from '../../components';
 import IllustrationImg from '../../assets/illustration.png'
 import { styles } from './styles';
 
@@ -19,28 +19,30 @@ export function SingIn(){
     }
 
     return (
-        <View style={styles.container} >
-            <Image 
-                source={IllustrationImg}
-                style={styles.image} 
-            />
-            <View style={styles.content} >
-                <Text style={styles.title} >
-                    Conecte-se {'\n'}
-                    e organize suas {'\n'}
-                    jogatinas
-                </Text>
-
-                <Text style={styles.subtitle} >
-                    Crie grupos para jogar games {`\n`}
-                    favoritos com seus amigos
-                </Text>
-
-                <ButtonIcon 
-                    title="Entrar com o Discord"
-                    onPress={handleSingIn}
+        <Background>
+            <View style={styles.container} >
+                <Image 
+                    source={IllustrationImg}
+                    style={styles.image} 
                 />
+                <View style={styles.content} >
+                    <Text style={styles.title} >
+                        Conecte-se {'\n'}
+                        e organize suas {'\n'}
+                        jogatinas
+                    </Text>
+
+                    <Text style={styles.subtitle} >
+                        Crie grupos para jogar games {`\n`}
+                        favoritos com seus amigos
+                    </Text>
+
+                    <ButtonIcon 
+                        title="Entrar com o Discord"
+                        onPress={handleSingIn}
+                    />
+                </View>
             </View>
-        </View>
+        </Background>
     );
 }
