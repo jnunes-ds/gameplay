@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 
+import { GuildIcon } from '../GuildIcon';
 import { styles } from './styles';
 
 export interface GuildProps{}

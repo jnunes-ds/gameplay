@@ -4,7 +4,8 @@ import {
     Profile,
     ButtonAdd,
     CategorySelect,
-    ListHeader
+    ListHeader,
+    Appointment
 } from '../../components';
 
 import { styles } from './styles';
@@ -55,7 +56,9 @@ export function Home(){
                         data={appointments}
                         keyExtractor={item => item.id}
                         renderItem={({ item }) => (
-                            <Text>{item.guild.name}</Text>
+                            <Appointment 
+                                data={item}
+                            />
                         )}
                     />
                 </View>
