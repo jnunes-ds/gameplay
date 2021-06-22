@@ -6,6 +6,7 @@ import { ButtonAdd } from './ButtonAdd';
 import { CategorySelect } from './CategorySelect';
 import { ListHeader } from './ListHeader';
 import { Appointment } from './Appointment';
+import { ListDivider } from './ListDivider';
 
 export {
     ButtonIcon,
@@ -15,5 +16,6 @@ export {
     ButtonAdd,
     CategorySelect,
     ListHeader,
-    Appointment
+    Appointment,
+    ListDivider
 };
