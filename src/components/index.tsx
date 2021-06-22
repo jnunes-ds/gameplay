@@ -5,6 +5,7 @@ import { Avatar } from './Avatar';
 import { ButtonAdd } from './ButtonAdd';
 import { CategorySelect } from './CategorySelect';
 import { ListHeader } from './ListHeader';
+import { Appointment } from './Appointment';
 
 export {
     ButtonIcon,
@@ -13,5 +14,6 @@ export {
     Avatar,
     ButtonAdd,
     CategorySelect,
-    ListHeader
+    ListHeader,
+    Appointment
 };
