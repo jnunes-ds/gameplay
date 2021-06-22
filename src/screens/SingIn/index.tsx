@@ -4,6 +4,7 @@ import {
     Text,
     Image, 
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { ButtonIcon } from '../../components';
 import IllustrationImg from '../../assets/illustration.png'
@@ -11,7 +12,11 @@ import { styles } from './styles';
 
 
 export function SingIn(){
+    const navigation = useNavigation();
 
+    function handleSingIn(){
+        navigation.navigate('Home');
+    }
 
     return (
         <View style={styles.container} >
@@ -34,6 +39,7 @@ export function SingIn(){
                 <ButtonIcon 
                     title="Entrar com o Discord"
                     activeOpacity={.7}
+                    onPress={handleSingIn}
                 />
             </View>
         </View>
