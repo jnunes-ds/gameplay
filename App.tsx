@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter';
 import { Rajdhani_500Medium, Rajdhani_700Bold } from '@expo-google-fonts/rajdhani';
@@ -15,10 +16,26 @@ export default function App(){
   });
 
   if(!fontsLoaded){
-    return <AppLoading />
+    return (
+      <>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        />
+        <AppLoading />
+      </>
+    );
   }
 
   return (
-    <SingIN />
+    <>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
+      <SingIN />
+    </>
   );
 }
