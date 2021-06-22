@@ -4,6 +4,7 @@ import { Profile } from './Profile';
 import { Avatar } from './Avatar';
 import { ButtonAdd } from './ButtonAdd';
 import { CategorySelect } from './CategorySelect';
+import { ListHeader } from './ListHeader';
 
 export {
     ButtonIcon,
@@ -11,5 +12,6 @@ export {
     Profile,
     Avatar,
     ButtonAdd,
-    CategorySelect
+    CategorySelect,
+    ListHeader
 };
