@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+
 import {
     Profile,
     ButtonAdd,
@@ -14,6 +17,8 @@ import { styles } from './styles';
 
 export function Home(){
     const [category, setCategory] = useState('');
+
+    const navigation = useNavigation();
 
     const appointments = [
         {
@@ -44,6 +49,10 @@ export function Home(){
 
     function handleCategorySelect(categoryId: string){
         categoryId === category ? setCategory('') : setCategory(categoryId);
+    }
+
+    function handleAppointmentDetails(){
+        navigation.navigate('AppointmentDetails');
     }
 
     return (
