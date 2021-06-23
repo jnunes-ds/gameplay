@@ -56,7 +56,7 @@ export function Home(){
     }
 
     function handleAppointmentCreate(){
-        navigation.navigate('AppointmentCreate')
+        navigation.navigate('AppointmentCreate');
     }
 
     return (

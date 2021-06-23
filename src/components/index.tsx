@@ -9,6 +9,8 @@ import { Appointment } from './Appointment';
 import { ListDivider } from './ListDivider';
 import { Header } from './Header';
 import { Member } from './Member';
+import { GuildIcon } from './GuildIcon';
+import { SmallInput } from './SmallInput';
 
 export {
     ButtonIcon,
@@ -21,5 +23,7 @@ export {
     Appointment,
     ListDivider,
     Header,
-    Member
+    Member,
+    GuildIcon,
+    SmallInput
 };

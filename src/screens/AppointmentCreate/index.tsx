@@ -1,92 +1,99 @@
-import React from 'react';
-import { Fontisto } from '@expo/vector-icons';
-import { BorderlessButton } from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { Feather } from '@expo/vector-icons';
+import { RectButton } from 'react-native-gesture-handler';
 import {
-    ImageBackground,
     Text,
     View,
-    FlatList
 } from 'react-native';
 
-import { styles } from './styles';
 import {
     Background,
     Header,
-    ListHeader,
-    Member,
-    ListDivider,
-    ButtonIcon
+    CategorySelect,
+    GuildIcon,
+    SmallInput
 } from '../../components';
+import { styles } from './styles';
 import { theme } from '../../global/styles/theme';
-import BannerPng from '../../assets/banner.png';
 
 
 export function AppointmentCreate(){
-    const members = [
-        {
-            id: '1',
-            username: 'Júnior',
-            avatar_url: 'https://github.com/jnunes-ds.png',
-            status: 'online'
-        },
-        {
-            id: '2',
-            username: 'Júnior',
-            avatar_url: 'https://github.com/jnunes-ds.png',
-            status: 'offline'
-        }
-    ]
+    const [category, setCategory] = useState('');
 
     return (
         <Background>
             <Header 
-                title="Detalhes"
-                action={
-                    <BorderlessButton>
-                        <Fontisto 
-                            name="share"
-                            size={24}
-                            color={theme.colors.primary}
-                        />
-                    </BorderlessButton>
-                }
+                title="Agendar partida"
             />
 
-            <ImageBackground
-                source={BannerPng}
-                style={styles.banner}
+            <Text 
+                style={[
+                    styles.label,
+                    { marginBottom: 18, marginLeft: 24, marginTop: 36 }
+                ]}
             >
-                <View style={styles.bannerContent}>
-                    <Text style={styles.title}>
-                        Lendários
-                    </Text>
+                Categoria
+            </Text>
 
-                    <Text style={styles.subtitle}>
-                        É hoje que vamos chegar ao challenger sem {'\n'}
-                        perder uma partida da md10
-                    </Text>
+            <CategorySelect 
+                hasCheckBox
+                setCategory={setCategory}
+                categorySelected={category}
+            />
+
+            <View style={styles.form}>
+                <RectButton>
+                    <View style={styles.select}>
+                        {
+                            // <View style={styles.image}/>
+                            <GuildIcon />
+                        }
+
+                        <View style={styles.selectBody}>
+                            <Text style={styles.label}>
+                                Selecione um servidor
+                            </Text>
+
+                        </View>
+
+                        <Feather 
+                            name="chevron-right"
+                            color={theme.colors.heading}
+                            size={18}
+                        />
+
+                    </View>
+                </RectButton>
+
+                <View style={styles.field}>
+                    <View>
+                        <Text style={styles.label}>
+                            Dia e mês
+                        </Text>
+
+                        <View style={styles.column}>
+                            <SmallInput maxLength={2}/>
+                            <Text style={styles.divider}>
+                                /
+                            </Text>
+                            <SmallInput maxLength={2}/>
+                        </View>
+                    </View>
+
+                    <View>
+                        <Text style={styles.label}>
+                            Hora e minuto
+                        </Text>
+
+                        <View style={styles.column}>
+                            <SmallInput maxLength={2}/>
+                            <Text style={styles.divider}>
+                                :
+                            </Text>
+                            <SmallInput maxLength={2}/>
+                        </View>
+                    </View>
                 </View>
-            </ImageBackground>
-
-            <ListHeader 
-                title="Jogadores"
-                subtitle="Total 3"
-            />
-
-            <FlatList 
-                data={members}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <Member data={item} />
-                )}
-                ItemSeparatorComponent={() => <ListDivider />}
-                style={styles.members}
-            />
-
-            <View style={styles.footer}>
-                <ButtonIcon 
-                    title="Entrar na partida"
-                />
             </View>
 
         </Background>
