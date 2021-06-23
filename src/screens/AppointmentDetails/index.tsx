@@ -13,7 +13,9 @@ import {
     Background,
     Header,
     ListHeader,
-    Member
+    Member,
+    ListDivider,
+    ButtonIcon
 } from '../../components';
 import { theme } from '../../global/styles/theme';
 import BannerPng from '../../assets/banner.png';
@@ -77,7 +79,15 @@ export function AppointmentDetails(){
                 renderItem={({ item }) => (
                     <Member data={item} />
                 )}
+                ItemSeparatorComponent={() => <ListDivider />}
+                style={styles.members}
             />
+
+            <View style={styles.footer}>
+                <ButtonIcon 
+                    title="Entrar na partida"
+                />
+            </View>
 
         </Background>
     );

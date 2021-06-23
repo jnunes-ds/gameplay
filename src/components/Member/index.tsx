@@ -2,7 +2,8 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 import { styles } from './styles';
-import { Avatar } from '../Avatar/index';
+import { Avatar } from '../Avatar/';
+import { theme } from '../../global/styles/theme';
 
 interface MemberProps{
     id: string;
@@ -17,6 +18,7 @@ interface Props{
 
 export function Member({ data } : Props){
     const isOnline = data.status === 'online';
+    const { on, primary } = theme.colors;
 
     return (
         <View style={styles.container}>
@@ -29,12 +31,19 @@ export function Member({ data } : Props){
                 </Text>
 
                 <View style={styles.status}>
+                    <View 
+                        style={[
+                            styles.bulletStatus,
+                            {
+                                backgroundColor: isOnline ? on : primary
+                            }
+                        ]}
+                    
+                    />
+
                     <Text style={styles.nameStatus}>
                         { isOnline ? 'Disponível' : 'Ocupado' }
                     </Text>
-                    <View style={styles.bulletStatus}>
-
-                    </View>
                 </View>
             </View>
         </View>
