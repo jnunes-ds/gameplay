@@ -11,6 +11,8 @@ import { Header } from './Header';
 import { Member } from './Member';
 import { GuildIcon } from './GuildIcon';
 import { SmallInput } from './SmallInput';
+import { TextArea } from './TextArea';
+import { Button } from './Button';
 
 export {
     ButtonIcon,
@@ -25,5 +27,7 @@ export {
     Header,
     Member,
     GuildIcon,
-    SmallInput
+    SmallInput,
+    TextArea,
+    Button
 };

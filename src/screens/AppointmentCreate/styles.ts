@@ -3,10 +3,18 @@ import { theme } from '../../global/styles/theme';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 export const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
     label: {
         fontSize: 18,
         fontFamily: theme.fonts.title700,
         color: theme.colors.heading,
+    },
+    charactersLimit: {
+        fontFamily: theme.fonts.text400,
+        fontSize: 13,
+        color: theme.colors.highlight
     },
     form: {
         paddingHorizontal: 24,
@@ -49,5 +57,9 @@ export const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: theme.fonts.text400,
         color: theme.colors.highlight
+    },
+    footer: {
+        marginVertical: 20,
+        marginBottom: 56,
     }
 });
