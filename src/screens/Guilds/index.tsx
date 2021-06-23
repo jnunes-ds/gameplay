@@ -7,7 +7,7 @@ interface Props{
     title: string;
 }
 
-export function Guild({ title } : Props){
+export function Guilds({ title } : Props){
 
     return (
         <View style={styles.container}>
