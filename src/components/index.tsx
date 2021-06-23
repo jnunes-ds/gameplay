@@ -8,6 +8,7 @@ import { ListHeader } from './ListHeader';
 import { Appointment } from './Appointment';
 import { ListDivider } from './ListDivider';
 import { Header } from './Header';
+import { Member } from './Member';
 
 export {
     ButtonIcon,
@@ -19,5 +20,6 @@ export {
     ListHeader,
     Appointment,
     ListDivider,
-    Header
+    Header,
+    Member
 };
