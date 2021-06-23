@@ -4,7 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
     Home,
     SingIn,
-    AppointmentDetails
+    AppointmentDetails,
+    AppointmentCreate
 } from '../screens';
 import { theme } from '../global/styles/theme';
 
@@ -31,6 +32,10 @@ export function AuthRoutes(){
             <Screen 
                 name="AppointmentDetails"
                 component={AppointmentDetails}
+            />
+            <Screen 
+                name="AppointmentCreate"
+                component={AppointmentCreate}
             />
         </Navigator>
     );
