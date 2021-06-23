@@ -1,19 +1,39 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import {
+    Text,
+    View,
+    FlatList
+} from 'react-native';
 
 import { styles } from './styles';
+import {
+    Guild,
+    GuildProps,
+    ListDivider,
+} from '../../components';
 
-interface Props{
-    title: string;
-}
-
-export function Guilds({ title } : Props){
+export function Guilds(){
+    const guilds = [
+        {
+            id: '1',
+            name: 'Lendários',
+            icon: null,
+            owner: true
+        }
+    ];
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>
-                { title }
-            </Text>
+            <FlatList 
+                data={guilds}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                    <Guild data={item} />
+                )}
+                showsVerticalScrollIndicator={false}
+                ItemSeparatorComponent={() => <ListDivider />}
+                style={styles.guilds}
+            />
         </View>
     );
 }

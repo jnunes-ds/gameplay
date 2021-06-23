@@ -13,6 +13,8 @@ import { GuildIcon } from './GuildIcon';
 import { SmallInput } from './SmallInput';
 import { TextArea } from './TextArea';
 import { Button } from './Button';
+import { Guild } from './Guild';
+import { GuildProps } from './Guild';
 
 export {
     ButtonIcon,
@@ -29,5 +31,7 @@ export {
     GuildIcon,
     SmallInput,
     TextArea,
-    Button
+    Button,
+    Guild,
+    GuildProps
 };
