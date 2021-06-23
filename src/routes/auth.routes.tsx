@@ -1,7 +1,11 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { Home, SingIn } from '../screens';
+import {
+    Home,
+    SingIn,
+    AppointmentDetails
+} from '../screens';
 import { theme } from '../global/styles/theme';
 
 const { Navigator, Screen } = createStackNavigator();
@@ -23,6 +27,10 @@ export function AuthRoutes(){
             <Screen 
                 name="Home"
                 component={Home}
+            />
+            <Screen 
+                name="AppointmentDetails"
+                component={AppointmentDetails}
             />
         </Navigator>
     );

@@ -7,7 +7,7 @@ import {
     ListHeader,
     Appointment,
     ListDivider,
-    Background
+    Background,
 } from '../../components';
 
 import { styles } from './styles';
@@ -72,6 +72,7 @@ export function Home(){
                         renderItem={({ item }) => (
                             <Appointment 
                                 data={item}
+                                onPress={handleAppointmentDetails}
                             />
                         )}
                         ItemSeparatorComponent={() => <ListDivider />}

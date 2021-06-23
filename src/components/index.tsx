@@ -7,6 +7,7 @@ import { CategorySelect } from './CategorySelect';
 import { ListHeader } from './ListHeader';
 import { Appointment } from './Appointment';
 import { ListDivider } from './ListDivider';
+import { Header } from './Header';
 
 export {
     ButtonIcon,
@@ -17,5 +18,6 @@ export {
     CategorySelect,
     ListHeader,
     Appointment,
-    ListDivider
+    ListDivider,
+    Header
 };
