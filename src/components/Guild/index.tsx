@@ -28,7 +28,7 @@ export function Guild({ data, ...rest } : Props){
     return (
         <TouchableOpacity 
             style={styles.container}
-            activeOpacity={.7}
+            activeOpacity={0.7}
             { ...rest }
         >
             <GuildIcon />

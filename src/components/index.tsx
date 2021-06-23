@@ -15,6 +15,7 @@ import { TextArea } from './TextArea';
 import { Button } from './Button';
 import { Guild } from './Guild';
 import { GuildProps } from './Guild';
+import { ModalView } from './ModalView';
 
 export {
     ButtonIcon,
@@ -33,5 +34,6 @@ export {
     TextArea,
     Button,
     Guild,
-    GuildProps
+    GuildProps,
+    ModalView
 };

@@ -12,13 +12,23 @@ import {
     ListDivider,
 } from '../../components';
 
-export function Guilds(){
+interface Props{
+    handleGuildSelect(guild: GuildProps): void;
+}
+
+export function Guilds({ handleGuildSelect } : Props){
     const guilds = [
         {
             id: '1',
             name: 'Lendários',
-            icon: null,
+            icon: 'image.png',
             owner: true
+        },
+        {
+            id: '2',
+            name: 'Não Lendários',
+            icon: null,
+            owner: false
         }
     ];
 
@@ -28,7 +38,10 @@ export function Guilds(){
                 data={guilds}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <Guild data={item} />
+                    <Guild 
+                        data={item}
+                        onPress={() => handleGuildSelect(item)} 
+                    />
                 )}
                 showsVerticalScrollIndicator={false}
                 ItemSeparatorComponent={() => <ListDivider />}
