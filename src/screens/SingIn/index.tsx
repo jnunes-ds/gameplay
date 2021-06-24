@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
     View,
     Text,
-    Image, 
+    Image,
+    Alert 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -13,10 +14,14 @@ import { useAuth } from '../../hooks/auth';
 
 
 export function SingIn(){
-    const navigation = useNavigation();
+    const { user, singIn } = useAuth();
 
-    function handleSingIn(){
-        navigation.navigate('Home');
+    async function handleSingIn(){
+        try {
+            await singIn();
+        } catch (error) {
+            Alert.alert(`${error}`);
+        }
     }
 
     return (
