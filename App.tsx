@@ -7,6 +7,7 @@ import AppLoading from 'expo-app-loading';
 
 import { Background } from './src/components';
 import { Routes } from './src/routes';
+import { AuthProvider } from './src/hooks/auth';
 
 export default function App(){
   const [fontsLoaded] = useFonts({
@@ -36,7 +37,9 @@ export default function App(){
         backgroundColor="transparent"
         translucent
       />
-      <Routes />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </Background>
   );
 }

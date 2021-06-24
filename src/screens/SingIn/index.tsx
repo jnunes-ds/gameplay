@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     View,
     Text,
@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ButtonIcon, Background } from '../../components';
 import IllustrationImg from '../../assets/illustration.png'
 import { styles } from './styles';
+import { useAuth } from '../../hooks/auth';
 
 
 export function SingIn(){
