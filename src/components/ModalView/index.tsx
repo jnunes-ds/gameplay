@@ -3,7 +3,8 @@ import {
     View,
     Text,
     Modal,
-    ModalProps
+    ModalProps,
+    TouchableWithoutFeedback
 } from 'react-native';
 
 import { styles } from './styles';
@@ -11,9 +12,14 @@ import { Background } from '../Background';
 
 interface Props extends ModalProps{
     children: ReactNode;
+    closeModal(): void;
 }
 
-export function ModalView({ children, ...rest } : Props){
+export function ModalView({
+    children,
+    closeModal,
+    ...rest
+} : Props){
 
     return (
         <Modal
@@ -21,14 +27,18 @@ export function ModalView({ children, ...rest } : Props){
             animationType="slide"
             { ...rest }
         >
-            <View style={styles.overlay}>
-                <View style={styles.container}>
-                    <Background>
-                        <View style={styles.bar} />
-                            { children }
-                    </Background>
+            <TouchableWithoutFeedback
+                onPress={closeModal}
+            >
+                <View style={styles.overlay}>
+                    <View style={styles.container}>
+                        <Background>
+                            <View style={styles.bar} />
+                                { children }
+                        </Background>
+                    </View>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
 
         </Modal>
     );

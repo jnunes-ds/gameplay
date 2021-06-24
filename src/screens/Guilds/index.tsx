@@ -29,6 +29,30 @@ export function Guilds({ handleGuildSelect } : Props){
             name: 'Não Lendários',
             icon: null,
             owner: false
+        },
+        {
+            id: '3',
+            name: 'Talvez seja bom',
+            icon: null,
+            owner: false
+        },
+        {
+            id: '4',
+            name: 'Fodão',
+            icon: null,
+            owner: true
+        },
+        {
+            id: '5',
+            name: 'Melhor',
+            icon: null,
+            owner: true
+        },
+        {
+            id: '6',
+            name: 'Meêro',
+            icon: null,
+            owner: false
         }
     ];
 
@@ -44,7 +68,9 @@ export function Guilds({ handleGuildSelect } : Props){
                     />
                 )}
                 showsVerticalScrollIndicator={false}
-                ItemSeparatorComponent={() => <ListDivider />}
+                ItemSeparatorComponent={() => <ListDivider isCentered/>}
+                ListHeaderComponent={() => <ListDivider isCentered/>}
+                contentContainerStyle={{ paddingBottom: 68, paddingTop: 103 }}
                 style={styles.guilds}
             />
         </View>
