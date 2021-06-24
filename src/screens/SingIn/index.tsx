@@ -3,7 +3,8 @@ import {
     View,
     Text,
     Image,
-    Alert 
+    Alert,
+    ActivityIndicator 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -11,10 +12,11 @@ import { ButtonIcon, Background } from '../../components';
 import IllustrationImg from '../../assets/illustration.png'
 import { styles } from './styles';
 import { useAuth } from '../../hooks/auth';
+import { theme } from '../../global/styles/theme';
 
 
 export function SingIn(){
-    const { user, singIn } = useAuth();
+    const { loading, singIn } = useAuth();
 
     async function handleSingIn(){
         try {
@@ -43,10 +45,14 @@ export function SingIn(){
                         favoritos com seus amigos
                     </Text>
 
-                    <ButtonIcon 
-                        title="Entrar com o Discord"
-                        onPress={handleSingIn}
-                    />
+                    {
+                        loading
+                        ?   <ActivityIndicator color={theme.colors.primary} />
+                        :   <ButtonIcon 
+                                title="Entrar com o Discord"
+                                onPress={handleSingIn}
+                            />
+                    }
                 </View>
             </View>
         </Background>
