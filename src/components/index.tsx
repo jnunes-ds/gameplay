@@ -5,7 +5,7 @@ import { Avatar } from './Avatar';
 import { ButtonAdd } from './ButtonAdd';
 import { CategorySelect } from './CategorySelect';
 import { ListHeader } from './ListHeader';
-import { Appointment } from './Appointment';
+import { Appointment, AppointmentProps } from './Appointment';
 import { ListDivider } from './ListDivider';
 import { Header } from './Header';
 import { Member } from './Member';
@@ -13,8 +13,7 @@ import { GuildIcon } from './GuildIcon';
 import { SmallInput } from './SmallInput';
 import { TextArea } from './TextArea';
 import { Button } from './Button';
-import { Guild } from './Guild';
-import { GuildProps } from './Guild';
+import { Guild, GuildProps } from './Guild';
 import { ModalView } from './ModalView';
 import { Load } from './Load';
 
@@ -27,6 +26,7 @@ export {
     CategorySelect,
     ListHeader,
     Appointment,
+    AppointmentProps,
     ListDivider,
     Header,
     Member,
