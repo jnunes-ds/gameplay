@@ -2,7 +2,8 @@ import React, {
     createContext,
     useContext,
     useState,
-    ReactNode 
+    ReactNode,
+    useEffect
 } from 'react';
 
 import * as AuthSession from 'expo-auth-session';
@@ -77,7 +78,7 @@ function AuthProvider({ children } : AuthProviderProps){
                     token: params.access_token
                 }
 
-                await AsyncStorage.setItem(COLLECTION_USER, userData);
+                await AsyncStorage.setItem(COLLECTION_USER, JSON.stringify(userData));
                 setUser(userData);
             }
             
@@ -87,6 +88,21 @@ function AuthProvider({ children } : AuthProviderProps){
             setLoading(false);
         }
     }
+
+    async function loadUserStorageData(){
+        const storage =  await AsyncStorage.getItem(COLLECTION_USER);
+
+        if(storage){
+            const userLogged = JSON.parse(storage) as User;
+            api.defaults.headers.authorization = `Bearer ${userLogged.token}`
+
+            setUser(userLogged)
+        }
+    }
+
+    useEffect(() => {
+        loadUserStorageData();
+    }, []);
 
     return (
         <AuthContext.Provider 
