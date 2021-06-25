@@ -8,7 +8,7 @@ import { ListHeader } from './ListHeader';
 import { Appointment, AppointmentProps } from './Appointment';
 import { ListDivider } from './ListDivider';
 import { Header } from './Header';
-import { Member } from './Member';
+import { Member, MemberProps } from './Member';
 import { GuildIcon } from './GuildIcon';
 import { SmallInput } from './SmallInput';
 import { TextArea } from './TextArea';
@@ -30,6 +30,7 @@ export {
     ListDivider,
     Header,
     Member,
+    MemberProps,
     GuildIcon,
     SmallInput,
     TextArea,

@@ -5,7 +5,7 @@ import { styles } from './styles';
 import { Avatar } from '../Avatar/';
 import { theme } from '../../global/styles/theme';
 
-interface MemberProps{
+export interface MemberProps{
     id: string;
     username: string;
     avatar_url: string;
