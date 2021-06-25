@@ -80,6 +80,7 @@ export function AppointmentDetails(){
             <Header 
                 title="Detalhes"
                 action={
+                    guildSelected.guild.owner &&
                     <BorderlessButton onPress={handleShareInvitation}>
                         <Fontisto 
                             name="share"
