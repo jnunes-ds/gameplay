@@ -11,6 +11,7 @@ import {
     Platform
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import * as Linking from 'expo-linking';
 
 import { styles } from './styles';
 import {
@@ -71,6 +72,10 @@ export function AppointmentDetails(){
             });
     }
 
+    function handleOpenGuild(){
+        Linking.openURL(widget.instant_invite);
+    }
+
     useEffect(() => {
         fetchGuildWidget();
     }, [])
@@ -124,13 +129,18 @@ export function AppointmentDetails(){
                             style={styles.members}
                         />
                     </>
+            }
+
+            {
+                guildSelected.guild.owner &&
+                <View style={styles.footer}>
+                    <ButtonIcon 
+                        title="Entrar na partida"
+                        onPress={handleOpenGuild}
+                    />
+                </View>
             }    
 
-            <View style={styles.footer}>
-                <ButtonIcon 
-                    title="Entrar na partida"
-                />
-            </View>
 
         </Background>
     );
