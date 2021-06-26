@@ -62,5 +62,13 @@ export const styles = StyleSheet.create({
     footer: {
         marginVertical: 20,
         marginBottom: 56,
+    },
+    errors: {
+        fontFamily: theme.fonts.text400,
+        color: theme.colors.primary,
+        fontSize: 10,
+        textAlign: 'center',
+        marginTop: 15,
+        marginBottom: -10
     }
 });

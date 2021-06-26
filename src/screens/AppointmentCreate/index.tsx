@@ -9,7 +9,8 @@ import {
     View,
     ScrollView,
     KeyboardAvoidingView,
-    Platform
+    Platform,
+    Alert
 } from 'react-native';
 
 import {
@@ -40,6 +41,11 @@ export function AppointmentCreate(){
     const [ minute, setMinute ] = useState('');
     const [ description, setDescription ] = useState('');
 
+    const [ haveDateError, setHaveDateError ] = useState(false);
+    const [ haveHourError, setHaveHourError ] = useState(false);
+    const [ dayMonthErros, setDayMonthError ] = useState('');
+    const [ hourMinuteError, setHourMinuteError ] = useState('');
+
     const navigation = useNavigation();
 
     function handleOpenGuilds(){
@@ -59,24 +65,69 @@ export function AppointmentCreate(){
         setCategory(categoryId)
     }
 
+    function dayMonthInputsValidation(){
+        if(Number(day) <= 0 || Number(day) >30){
+            setDayMonthError('Escolha um dia válido');
+            setHaveDateError(true);
+            return true;
+        }else if(Number(month) <= 0 || Number(month) > 12){
+            setDayMonthError('Escolha um mês válido');
+            setHaveDateError(true);
+            return true;
+        }else{
+            setDayMonthError('');
+            setHaveDateError(false);
+            return false;
+        }
+    }
+
+    function hourMinutehInputsValidation(){
+        if(Number(hour) <= 0 || Number(hour) > 24){
+            setHourMinuteError('Escolha uma hora válida');
+            setHaveHourError(true);
+            return true;
+        }else if(Number(minute) <= 0 || Number(minute) > 59){
+            setHourMinuteError('Escolha minutos váldos');
+            setHaveHourError(true);
+            return true;
+        }else{
+            setHourMinuteError('');
+            setHaveHourError(false);
+            return false;
+        }
+    }
+
     async function handleSave(){
-        const newAppointment = {
-            id: uuid.v4(),
-            guild,
-            category,
-            date: `${day}/${month} às ${hour}:${minute}h`,
-            description
+        if(!category){
+            Alert.alert('Categoria', 'É necessário selecionar uma categoria');
+            return;
+        }
+        if(!guild.name){
+            Alert.alert('Servidor', 'É obrigatória a seleção de um servidor!');
+            return;
+        }
+        const invalidDate = dayMonthInputsValidation();
+        const invalidHour = hourMinutehInputsValidation();
+
+        if(!invalidDate && !invalidHour){
+            const newAppointment = {
+                id: uuid.v4(),
+                guild,
+                category,
+                date: `${day}/${month} às ${hour}:${minute}h`,
+                description
+            }
+    
+            const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+            const appointments = storage ? JSON.parse(storage) : [];
+    
+            await AsyncStorage.setItem(
+                COLLECTION_APPOINTMENTS,
+                JSON.stringify([...appointments, newAppointment])
+            );
+            navigation.navigate('Home');
         }
 
-        const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
-        const appointments = storage ? JSON.parse(storage) : [];
-
-        await AsyncStorage.setItem(
-            COLLECTION_APPOINTMENTS,
-            JSON.stringify([...appointments, newAppointment])
-        );
-
-        navigation.navigate('Home');
     }
 
     return (
@@ -155,6 +206,10 @@ export function AppointmentCreate(){
                                         onChangeText={setMonth}
                                     />
                                 </View>
+                                {
+                                    haveDateError &&
+                                    <Text style={styles.errors}> { dayMonthErros } </Text>
+                                }
                             </View>
 
                             <View>
@@ -175,6 +230,10 @@ export function AppointmentCreate(){
                                         onChangeText={setMinute}
                                     />
                                 </View>
+                                {
+                                    haveHourError &&
+                                    <Text style={styles.errors}> { hourMinuteError } </Text>
+                                }
                             </View>
 
                         </View>
