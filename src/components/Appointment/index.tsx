@@ -1,6 +1,6 @@
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableWithoutFeedback } from 'react-native';
 import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 
 import { styles } from './styles';
@@ -22,9 +22,10 @@ export interface AppointmentProps{
 
 interface Props extends RectButtonProps{
     data: AppointmentProps;
+    onLongPress(): void;
 }
 
-export function Appointment({ data, ...rest } : Props){
+export function Appointment({ data, onLongPress, ...rest } : Props){
     const [category] = categories.filter(item => item.id === data.category);
     const { owner } = data.guild;
     const { primary, on, secondary50, secondary70 } = theme.colors;
@@ -33,6 +34,9 @@ export function Appointment({ data, ...rest } : Props){
         <RectButton 
              { ...rest }
         >
+            <TouchableWithoutFeedback
+                onLongPress={onLongPress}
+            >
             <View style={styles.container}>
                 <LinearGradient
                     style={styles.guildIconContainer}
@@ -80,6 +84,7 @@ export function Appointment({ data, ...rest } : Props){
                     </View>
                 </View>
             </View>
+            </TouchableWithoutFeedback>
 
         </RectButton>
     );

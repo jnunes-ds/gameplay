@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, Alert } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -53,12 +53,45 @@ export function Home(){
             setLoading(false);
     }
 
+    async function removeAppointment(item: AppointmentProps){
+        const appointmentsList = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+        if(appointments){
+            const appointmentsListFormatted = JSON.parse(appointmentsList!) as AppointmentProps[];
+
+            const appointmentsListFiltered = appointmentsListFormatted
+                .filter(appointment => item.id !== appointment.id);
+            
+            await AsyncStorage.setItem(COLLECTION_APPOINTMENTS, JSON.stringify(appointmentsListFiltered));
+            setAppointments(appointmentsListFiltered);
+        }
+    }
+
+    async function removeAppointmentByDate(){
+        console.log(appointments)
+    }
+
+    async function handleRemoveAppointment(item: AppointmentProps){
+        Alert.alert('Deletar', 'Tem certeza que deseja deletar este item?', [
+            {
+                text: 'Não',
+                style: 'cancel'
+            },
+            {
+                text: 'Sim',
+                style: 'default',
+                onPress: () => removeAppointment(item)
+            }
+        ])
+    }
+
+
     // async function removeAllAppointments(){
     //     await AsyncStorage.removeItem(COLLECTION_APPOINTMENTS);
     // }
 
     useFocusEffect(useCallback(() => {
         loadAppointments();
+        removeAppointmentByDate();
         // removeAllAppointments();
     }, [category]));
 
@@ -93,6 +126,7 @@ export function Home(){
                                     <Appointment 
                                         data={item}
                                         onPress={() => handleAppointmentDetails(item)}
+                                        onLongPress={() => handleRemoveAppointment(item)}
                                     />
                                 )}
                                 ItemSeparatorComponent={() => <ListDivider />}
