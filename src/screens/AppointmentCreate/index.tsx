@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
 import uuid from 'react-native-uuid';
@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import * as Notifications from 'expo-notifications';
 import {
     Text,
     View,
@@ -142,6 +143,7 @@ export function AppointmentCreate(){
         }
 
     }
+
 
     return (
         <KeyboardAvoidingView
