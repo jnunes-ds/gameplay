@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, Text, FlatList, Alert } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -36,6 +36,7 @@ export function Home(){
     }
 
     function handleAppointmentCreate(){
+        removeAppointmentByDate();
         navigation.navigate('AppointmentCreate');
     }
 
@@ -49,7 +50,7 @@ export function Home(){
             }else{
                 setAppointments(storage);
             }
-
+            removeAppointmentByDate();
             setLoading(false);
     }
 
@@ -66,7 +67,22 @@ export function Home(){
         }
     }
 
-    async function removeAppointmentByDate(){}
+    async function removeAppointmentByDate(){
+        try {
+            const currentData = new Date();
+            
+            const response = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+            const storage : AppointmentProps[] = response
+                ? JSON.parse(response) : [];
+
+            const storageFiltered = storage.filter(item => new Date(item.date).getTime() >= currentData.getTime());
+            await AsyncStorage.setItem(COLLECTION_APPOINTMENTS, JSON.stringify(storageFiltered));   
+            setAppointments(storageFiltered);   
+            
+        } catch (error) {
+            console.log(`${error}`);
+        }
+    }
 
     async function handleRemoveAppointment(item: AppointmentProps){
         Alert.alert('Deletar', 'Tem certeza que deseja deletar este item?', [
@@ -87,9 +103,9 @@ export function Home(){
     //     await AsyncStorage.removeItem(COLLECTION_APPOINTMENTS);
     // }
 
+    
     useFocusEffect(useCallback(() => {
         loadAppointments();
-        removeAppointmentByDate();
         // removeAllAppointments();
     }, [category]));
 
