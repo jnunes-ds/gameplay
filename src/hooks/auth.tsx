@@ -32,6 +32,7 @@ interface AuthContextData{
     user: User;
     loading: Boolean;
     singIn(): void;
+    singOut(): void;
 }
 
 interface AuthProviderProps{
@@ -89,6 +90,15 @@ function AuthProvider({ children } : AuthProviderProps){
         }
     }
 
+    async function singOut(){
+        try {
+            await AsyncStorage.removeItem(COLLECTION_USER);
+            setUser({} as User);
+        } catch (error) {
+            
+        }
+    }
+
     async function loadUserStorageData(){
         const storage =  await AsyncStorage.getItem(COLLECTION_USER);
 
@@ -109,7 +119,8 @@ function AuthProvider({ children } : AuthProviderProps){
             value={{
                 user,
                 loading,
-                singIn
+                singIn,
+                singOut
             }}
         >
             { children }

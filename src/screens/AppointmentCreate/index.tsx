@@ -24,7 +24,8 @@ import {
     SmallInput,
     TextArea,
     ModalView,
-    GuildProps
+    GuildProps,
+    AppointmentProps
 } from '../../components';
 import { Guilds } from '../Guilds';
 import { styles } from './styles';
@@ -84,11 +85,11 @@ export function AppointmentCreate(){
     }
 
     function hourMinutehInputsValidation(){
-        if(Number(hour) <= 0 || Number(hour) > 24){
+        if(Number(hour) < 0 || Number(hour) > 24){
             setHourMinuteError('Escolha uma hora válida');
             setHaveHourError(true);
             return true;
-        }else if(Number(minute) <= 0 || Number(minute) > 59){
+        }else if(Number(minute) < 0 || Number(minute) > 59){
             setHourMinuteError('Escolha minutos váldos');
             setHaveHourError(true);
             return true;
@@ -118,10 +119,13 @@ export function AppointmentCreate(){
             const date = new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute)).getTime() >= currentDate
                 ? new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute))
                 : new Date(year + 1, (Number(month) - 1), Number(day), Number(hour), Number(minute));
+            
                 
             const dateFormatted = format(date, "dd/MM ' às ' HH:mm", { locale: ptBR } );
-            const newAppointment = {
-                id: uuid.v4(),
+            
+            const newId = String(uuid.v4());
+            const newAppointment: AppointmentProps = {
+                id: newId,
                 guild,
                 category,
                 date,
