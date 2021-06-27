@@ -112,8 +112,13 @@ export function AppointmentCreate(){
         const invalidHour = hourMinutehInputsValidation();
 
         if(!invalidDate && !invalidHour){
+            const currentDate = new Date().getTime();
             const year = new Date().getFullYear();
-            const date = new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute));
+
+            const date = new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute)).getTime() >= currentDate
+                ? new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute))
+                : new Date(year + 1, (Number(month) - 1), Number(day), Number(hour), Number(minute));
+                
             const dateFormatted = format(date, "dd/MM ' às ' HH:mm", { locale: ptBR } );
             const newAppointment = {
                 id: uuid.v4(),
@@ -126,6 +131,8 @@ export function AppointmentCreate(){
     
             const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
             const appointments = storage ? JSON.parse(storage) : [];
+
+            console.log(date);
     
             await AsyncStorage.setItem(
                 COLLECTION_APPOINTMENTS,
