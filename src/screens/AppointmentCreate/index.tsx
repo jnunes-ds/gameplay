@@ -4,6 +4,8 @@ import { RectButton } from 'react-native-gesture-handler';
 import uuid from 'react-native-uuid';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import {
     Text,
     View,
@@ -110,11 +112,15 @@ export function AppointmentCreate(){
         const invalidHour = hourMinutehInputsValidation();
 
         if(!invalidDate && !invalidHour){
+            const year = new Date().getFullYear();
+            const date = new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute));
+            const dateFormatted = format(date, "dd/MM ' às ' HH:mm", { locale: ptBR } );
             const newAppointment = {
                 id: uuid.v4(),
                 guild,
                 category,
-                date: `${day}/${month} às ${hour}:${minute}h`,
+                date,
+                dateFormatted,
                 description
             }
     

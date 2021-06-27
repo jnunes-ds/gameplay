@@ -66,9 +66,7 @@ export function Home(){
         }
     }
 
-    async function removeAppointmentByDate(){
-        console.log(appointments)
-    }
+    async function removeAppointmentByDate(){}
 
     async function handleRemoveAppointment(item: AppointmentProps){
         Alert.alert('Deletar', 'Tem certeza que deseja deletar este item?', [

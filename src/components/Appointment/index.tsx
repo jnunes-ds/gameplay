@@ -16,7 +16,8 @@ export interface AppointmentProps{
     id: string;
     guild: GuildProps;
     category: string;
-    date: string;
+    date: Date;
+    dateFormatted: string;
     description: string;
 }
 
@@ -64,7 +65,7 @@ export function Appointment({ data, onLongPress, ...rest } : Props){
                             <CalendarSvg />
 
                             <Text style={styles.date}>
-                                { data.date }
+                                { data.dateFormatted }
                             </Text>
                         </View>
 
