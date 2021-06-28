@@ -115,14 +115,16 @@ export function AppointmentCreate(){
         const invalidHour = hourMinutehInputsValidation();
 
         if(!invalidDate && !invalidHour){
-            const currentDate = new Date();
+            const currentDate = new Date().getTime();
             const year = new Date().getFullYear();
 
-            const date = new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute)).getTime() >= currentDate.getTime()
+            const date = new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute)).getTime() >= currentDate
                 ? new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute))
                 : new Date(year + 1, (Number(month) - 1), Number(day), Number(hour), Number(minute));
             
-            const seconds = currentDate.getSeconds() - date.getSeconds();
+            const diff = Math.abs(date.getTime() - currentDate)
+
+            const seconds = Math.ceil(diff / 1000);
 
             let minutes: number;
             if((seconds * 60) < 1) minutes = 1;
