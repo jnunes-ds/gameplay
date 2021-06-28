@@ -32,6 +32,7 @@ import { Guilds } from '../Guilds';
 import { styles } from './styles';
 import { theme } from '../../global/styles/theme';
 import { COLLECTION_APPOINTMENTS } from '../../configs/database';
+import { schedulePushNotification } from '../../configs/notifications';
 
 
 export function AppointmentCreate(){
@@ -114,13 +115,33 @@ export function AppointmentCreate(){
         const invalidHour = hourMinutehInputsValidation();
 
         if(!invalidDate && !invalidHour){
-            const currentDate = new Date().getTime();
+            const currentDate = new Date();
             const year = new Date().getFullYear();
 
-            const date = new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute)).getTime() >= currentDate
+            const date = new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute)).getTime() >= currentDate.getTime()
                 ? new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute))
                 : new Date(year + 1, (Number(month) - 1), Number(day), Number(hour), Number(minute));
             
+            const seconds = currentDate.getSeconds() - date.getSeconds();
+
+            let minutes: number;
+            if((seconds * 60) < 1) minutes = 1;
+            else if((seconds * 60) > 1 || (seconds * 60) <= 5) minutes = 5;
+            else if((seconds * 60) > 5 || (seconds * 60) <= 10) minutes = 10;
+            else minutes = 15;
+
+            const newAlert = {
+                content: {
+                title: `Ta na hora de jogar no ${guild.name}! 🎮`,
+                body: `Sua partida começa em menos de ${minutes}min!`,
+                data: { data: 'goes here' },
+                },
+                trigger: { seconds: seconds < 60 ? 60 : seconds },
+            }
+
+            console.log(seconds);
+
+            schedulePushNotification(newAlert);
                 
             const dateFormatted = format(date, "dd/MM ' às ' HH:mm", { locale: ptBR } );
             
@@ -137,7 +158,6 @@ export function AppointmentCreate(){
             const storage = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
             const appointments = storage ? JSON.parse(storage) : [];
 
-            console.log(date);
     
             await AsyncStorage.setItem(
                 COLLECTION_APPOINTMENTS,
@@ -148,6 +168,7 @@ export function AppointmentCreate(){
 
     }
 
+    
 
     return (
         <KeyboardAvoidingView

@@ -1,7 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { View, Text, FlatList, Alert } from 'react-native';
+import React, { useState, useCallback, useEffect,useRef } from 'react';
+import { View, FlatList, Alert } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { registerForPushNotificationsAsync } from   '../../configs/notifications';
+import * as Notifications from 'expo-notifications';
 
 
 import {
@@ -24,6 +26,9 @@ export function Home(){
     const [category, setCategory] = useState('');
     const [ loading, setLoading ] = useState(true);
     const [ appointments, setAppointments ] = useState<AppointmentProps[]>([] as AppointmentProps[]);
+
+    const notificationListener = useRef();
+    const responseListener = useRef();
 
     const navigation = useNavigation();
 
@@ -108,6 +113,21 @@ export function Home(){
         loadAppointments();
         // removeAllAppointments();
     }, [category]));
+
+    useEffect(() => {
+        registerForPushNotificationsAsync();
+
+        notificationListener.current = Notifications.addNotificationReceivedListener(notification => notification);
+
+        responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+        console.log(response);
+        });
+
+        return () => {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+        Notifications.removeNotificationSubscription(responseListener.current);
+        };
+    }, []);
 
     return (
         <Background>

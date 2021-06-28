@@ -9,15 +9,29 @@ import { Background } from './src/components';
 import { Routes } from './src/routes';
 import { AuthProvider } from './src/hooks/auth';
 
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 LogBox.ignoreLogs(['You are not currently signed in to Expo on your development machine.'])
 
 export default function App(){
+  
+  
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
     Rajdhani_500Medium,
     Rajdhani_700Bold
   });
+
+  
 
   if(!fontsLoaded){
     return (
