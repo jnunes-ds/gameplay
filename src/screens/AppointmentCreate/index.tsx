@@ -122,15 +122,20 @@ export function AppointmentCreate(){
                 ? new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute))
                 : new Date(year + 1, (Number(month) - 1), Number(day), Number(hour), Number(minute));
             
-            const diff = Math.abs(date.getTime() - currentDate)
+            const dateAlarm = new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute)).getTime() >= currentDate
+                ? new Date(year, (Number(month) - 1), Number(day), Number(hour), (Number(minute) - 15))
+                : new Date(year + 1, (Number(month) - 1), Number(day), Number(hour), (Number(minute) - 15));
+
+            const diff = Math.abs(dateAlarm.getTime() - currentDate)
 
             const seconds = Math.ceil(diff / 1000);
 
             let minutes: number;
-            if((seconds * 60) < 1) minutes = 1;
-            else if((seconds * 60) > 1 || (seconds * 60) <= 5) minutes = 5;
-            else if((seconds * 60) > 5 || (seconds * 60) <= 10) minutes = 10;
-            else minutes = 15;
+            if((seconds / 60) <= 1) minutes = 1;
+            else if((seconds / 60) > 1 || (seconds * 60) <= 5) minutes = 5;
+            else if((seconds / 60) > 5 || (seconds * 60) <= 10) minutes = 10;
+            else  minutes = 15;
+            
 
             const newAlert = {
                 content: {
