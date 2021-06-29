@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
 import uuid from 'react-native-uuid';
@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import * as Notifications from 'expo-notifications';
 import {
     Text,
     View,
@@ -118,7 +117,7 @@ export function AppointmentCreate(){
             const currentDate = new Date().getTime();
             const year = new Date().getFullYear();
 
-            const date = new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute)).getTime() >= currentDate
+            const dateGame = new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute)).getTime() >= currentDate
                 ? new Date(year, (Number(month) - 1), Number(day), Number(hour), Number(minute))
                 : new Date(year + 1, (Number(month) - 1), Number(day), Number(hour), Number(minute));
             
@@ -126,14 +125,16 @@ export function AppointmentCreate(){
                 ? new Date(year, (Number(month) - 1), Number(day), Number(hour), (Number(minute) - 15))
                 : new Date(year + 1, (Number(month) - 1), Number(day), Number(hour), (Number(minute) - 15));
 
-            const diff = Math.abs(dateAlarm.getTime() - currentDate)
+            const diffGame = Math.abs(dateGame.getTime() - currentDate)
+            const diffAlarm = Math.abs(dateAlarm.getTime() - currentDate);
 
-            const seconds = Math.ceil(diff / 1000);
+            const secondsForGame = Math.ceil(diffGame / 1000)
+            const secondsForAlarm = Math.ceil(diffAlarm / 1000);
 
             let minutes: number;
-            if((seconds / 60) <= 1) minutes = 1;
-            else if((seconds / 60) > 1 || (seconds * 60) <= 5) minutes = 5;
-            else if((seconds / 60) > 5 || (seconds * 60) <= 10) minutes = 10;
+            if((secondsForGame / 60) <= 1) minutes = 1;
+            else if((secondsForGame / 60) > 1 || (secondsForGame / 60) <= 5) minutes = 5;
+            else if((secondsForGame / 60) > 5 || (secondsForGame / 60) <= 10) minutes = 10;
             else  minutes = 15;
             
 
@@ -143,21 +144,19 @@ export function AppointmentCreate(){
                 body: `Sua partida começa em menos de ${minutes}min!`,
                 data: { data: 'goes here' },
                 },
-                trigger: { seconds: seconds < 60 ? 60 : seconds },
+                trigger: { seconds: secondsForAlarm < 60 ? 60 : secondsForAlarm },
             }
 
-            console.log(seconds);
-
-            schedulePushNotification(newAlert);
+            console.log(secondsForAlarm);
                 
-            const dateFormatted = format(date, "dd/MM ' às ' HH:mm", { locale: ptBR } );
+            const dateFormatted = format(dateGame, "dd/MM ' às ' HH:mm", { locale: ptBR } );
             
             const newId = String(uuid.v4());
             const newAppointment: AppointmentProps = {
                 id: newId,
                 guild,
                 category,
-                date,
+                date: dateGame,
                 dateFormatted,
                 description
             }
@@ -170,6 +169,8 @@ export function AppointmentCreate(){
                 COLLECTION_APPOINTMENTS,
                 JSON.stringify([...appointments, newAppointment])
             );
+
+            await schedulePushNotification(newAlert);
             navigation.navigate('Home');
         }
 
